@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Golang WebApp</title>
+    <link rel="stylesheet" href="{{ .Static }}css/bootstrap.min.css" type="text/css">
+    <link rel="shortcut icon" href="{{ .Static }}img/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark shadow-sm" role="navigation">
+      <div class="container d-flex justify-content-between">
+        <div class="navbar-brand d-flex align-items-left">
+          <a class="navbar-brand" href="/">Funnel</a>
+          <a class="navbar-brand" href="/about/">About</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      {{ template "content" . }}
+    </div>
+  </body>
+</html>
