@@ -27,10 +27,16 @@ func Home(w http.ResponseWriter, req *http.Request) {
 	render(w, "index", context)
 }
 
-// About : The about page tells people what Funnel is all about
-func About(w http.ResponseWriter, req *http.Request) {
-	context := Context{Title: "About"}
-	render(w, "about", context)
+// Sources : Displays all source datastores
+func Sources(w http.ResponseWriter, req *http.Request) {
+	context := Context{Title: "Source Datastores"}
+	render(w, "sources", context)
+}
+
+// Destinations : Displays all destination datastores
+func Destinations(w http.ResponseWriter, req *http.Request) {
+	context := Context{Title: "Destination Datastores"}
+	render(w, "destinations", context)
 }
 
 func render(w http.ResponseWriter, tmpl string, context Context) {
@@ -63,7 +69,8 @@ func StaticHandler(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	http.HandleFunc("/", Home)
-	http.HandleFunc("/about/", About)
+	http.HandleFunc("/sources/", Sources)
+	http.HandleFunc("/destinations/", Destinations)
 	http.HandleFunc(StaticURL, StaticHandler)
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {

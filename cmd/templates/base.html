@@ -4,19 +4,37 @@
     <meta charset="utf-8">
     <title>Funnel</title>
     <link rel="stylesheet" href="{{ .Static }}css/bootstrap.min.css" type="text/css">
-    <link rel="shortcut icon" href="{{ .Static }}img/favicon.ico">
+    <link rel="stylesheet" href="{{ .Static }}css/sticky-footer-navbar.css">
+    <link rel="stylesheet" href="{{ .Static }}css/base-custom.css">
+    <link rel="shortcut icon" href="{{ .Static }}img/funnel_icon.png">
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-dark shadow-sm" role="navigation">
-      <div class="container d-flex justify-content-between">
-        <div class="navbar-brand d-flex align-items-left">
-          <a class="navbar-brand" href="/">Funnel</a>
-          <a class="navbar-brand" href="/about/">About</a>
-        </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <img src="{{ .Static }}img/funnel_icon.png" id="funnel_icon" height="42" width="42">
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="navbar-brand" href="/">Funnel</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sources/">Sources</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/destinations/">Destinations</a>
+          </li>
+        </ul>
+        
       </div>
     </nav>
     <div class="container">
       {{ template "content" . }}
     </div>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted" id="footer_text">Go Funnel Yourself</span>
+      </div>
+    </footer>
   </body>
 </html>
