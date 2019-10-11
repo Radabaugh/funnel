@@ -27,6 +27,7 @@
 
 [metadata.heroku]
   root-package = "https://github.com/Radabaugh/funnel"
+  go-version = "1.13.1"
 
 [prune]
   go-tests = true
