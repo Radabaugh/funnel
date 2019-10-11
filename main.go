@@ -65,7 +65,7 @@ func main() {
 	http.HandleFunc("/sources/", Sources)
 	http.HandleFunc("/destinations/", Destinations)
 	http.HandleFunc(StaticURL, StaticHandler)
-	err := http.ListenAndServe(":5000", nil)
+	err := http.ListenAndServe(":0", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
