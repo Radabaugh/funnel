@@ -25,6 +25,9 @@
 #   unused-packages = true
 
 
+[metadata.heroku]
+  root-package = "https://github.com/Radabaugh/funnel"
+
 [prune]
   go-tests = true
   unused-packages = true
