@@ -9,31 +9,25 @@ import (
 	"time"
 )
 
-// StaticURL : A reference to the static URL
-const StaticURL string = "/static/"
+const StaticURL = "/static/"
 
-// StaticRoot : A reference to the static folder
-const StaticRoot string = "static/"
+const StaticRoot = "static/"
 
-// Context : A struct containing context for webpages
 type Context struct {
 	Title  string
 	Static string
 }
 
-// Home : The home page for Funnel
 func Home(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Welcome!"}
 	render(w, "index", context)
 }
 
-// Sources : Displays all source datastores
 func Sources(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Source Datastores"}
 	render(w, "sources", context)
 }
 
-// Destinations : Displays all destination datastores
 func Destinations(w http.ResponseWriter, req *http.Request) {
 	context := Context{Title: "Destination Datastores"}
 	render(w, "destinations", context)
@@ -53,7 +47,6 @@ func render(w http.ResponseWriter, tmpl string, context Context) {
 	}
 }
 
-// StaticHandler : Handler for the StaticURL
 func StaticHandler(w http.ResponseWriter, req *http.Request) {
 	staticFile := req.URL.Path[len(StaticURL):]
 	if len(staticFile) != 0 {
