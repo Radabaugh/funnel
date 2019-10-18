@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -15,22 +14,21 @@ const staticURL = "/static/"
 const staticRoot = "static/"
 
 type context struct {
-	Title  string
 	Static string
 }
 
 func home(w http.ResponseWriter, req *http.Request) {
-	context := context{Title: "Welcome!"}
+	context := context{}
 	render(w, "index", context)
 }
 
 func sources(w http.ResponseWriter, req *http.Request) {
-	context := context{Title: "Source Datastores"}
+	context := context{}
 	render(w, "sources", context)
 }
 
 func destinations(w http.ResponseWriter, req *http.Request) {
-	context := context{Title: "Destination Datastores"}
+	context := context{}
 	render(w, "destinations", context)
 }
 
@@ -61,26 +59,12 @@ func staticHandler(w http.ResponseWriter, req *http.Request) {
 	http.NotFound(w, req)
 }
 
-func determineListenAddress() (string, error) {
-	port := os.Getenv("PORT")
-	if port == "" {
-		return "", fmt.Errorf("$PORT not set")
-	}
-	return ":" + port, nil
-}
-
 func main() {
-	addr, e := determineListenAddress()
-	if e != nil {
-		log.Fatal(e)
-	}
-
 	http.HandleFunc("/", home)
 	http.HandleFunc("/sources/", sources)
 	http.HandleFunc("/destinations/", destinations)
 	http.HandleFunc(staticURL, staticHandler)
-	log.Printf("Listening on %s...\n", addr)
-	err := http.ListenAndServe(addr, nil)
+	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
