@@ -9,32 +9,31 @@ import (
 	"time"
 )
 
-const StaticURL = "/static/"
+const staticURL = "/static/"
 
-const StaticRoot = "static/"
+const staticRoot = "static/"
 
-type Context struct {
-	Title  string
+type context struct {
 	Static string
 }
 
-func Home(w http.ResponseWriter, req *http.Request) {
-	context := Context{Title: "Welcome!"}
+func home(w http.ResponseWriter, req *http.Request) {
+	context := context{}
 	render(w, "index", context)
 }
 
-func Sources(w http.ResponseWriter, req *http.Request) {
-	context := Context{Title: "Source Datastores"}
+func sources(w http.ResponseWriter, req *http.Request) {
+	context := context{}
 	render(w, "sources", context)
 }
 
-func Destinations(w http.ResponseWriter, req *http.Request) {
-	context := Context{Title: "Destination Datastores"}
+func destinations(w http.ResponseWriter, req *http.Request) {
+	context := context{}
 	render(w, "destinations", context)
 }
 
-func render(w http.ResponseWriter, tmpl string, context Context) {
-	context.Static = StaticURL
+func render(w http.ResponseWriter, tmpl string, context context) {
+	context.Static = staticURL
 	tmplList := []string{"templates/base.html",
 		fmt.Sprintf("templates/%s.html", tmpl)}
 	t, err := template.ParseFiles(tmplList...)
@@ -47,10 +46,10 @@ func render(w http.ResponseWriter, tmpl string, context Context) {
 	}
 }
 
-func StaticHandler(w http.ResponseWriter, req *http.Request) {
-	staticFile := req.URL.Path[len(StaticURL):]
+func staticHandler(w http.ResponseWriter, req *http.Request) {
+	staticFile := req.URL.Path[len(staticURL):]
 	if len(staticFile) != 0 {
-		f, err := http.Dir(StaticRoot).Open(staticFile)
+		f, err := http.Dir(staticRoot).Open(staticFile)
 		if err == nil {
 			content := io.ReadSeeker(f)
 			http.ServeContent(w, req, staticFile, time.Now(), content)
@@ -61,10 +60,10 @@ func StaticHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", Home)
-	http.HandleFunc("/sources/", Sources)
-	http.HandleFunc("/destinations/", Destinations)
-	http.HandleFunc(StaticURL, StaticHandler)
+	http.HandleFunc("/", home)
+	http.HandleFunc("/sources/", sources)
+	http.HandleFunc("/destinations/", destinations)
+	http.HandleFunc(staticURL, staticHandler)
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)

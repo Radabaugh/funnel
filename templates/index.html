@@ -1,6 +1,96 @@
 {{ define "content" }}
-  <div class="page-header">
-    <h1>{{ .Title }}</h1>
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 box-shadow">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Queued</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">2</h1>
+      </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Working</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">1</h1>
+      </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Failed</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">0</h1>
+      </div>
+    </div>
   </div>
-  <p>This will end up being the dashboard.</p>
+
+  <button type="button" class="btn btn-dark">New Job</button>
+
+  <br></br>
+
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Job Type</th>
+        <th scope="col">Schedule</th>
+        <th scope="col">Last Run</th>
+        <th scope="col">Last Run Duration</th>
+        <th scope="col">Number of Runs</th>
+        <th scope="col">Next Run</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href=#>Smart Notes to Datawarehouse</a></td>
+        <td>Database to Database</td>
+        <td>Every 5 Minutes</td>
+        <td>2019-10-18 14:22</td>
+        <td>23 Seconds</td>
+        <td>5</td>
+        <td>2019-10-18 14:27</td>
+        <td><a href=#>Pause</a> | <a href=#>Edit</a> | <a href=#>Destroy</a></td>
+      </tr>
+      <tr>
+        <td><a href=#>Rubygems to Datawarehouse</a></td>
+        <td>Database to Database</td>
+        <td>Every 1 Hour</td>
+        <td>2019-10-18 14:22</td>
+        <td>34 Seconds</td>
+        <td>1</td>
+        <td>2019-10-18 15:22</td>
+        <td><a href=#>Pause</a> | <a href=#>Edit</a> | <a href=#>Destroy</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+          <th scope="col"></th>
+          <th scope="col">Job Type</th>
+          <th scope="col">Schedule</th>
+          <th scope="col">Last Run</th>
+          <th scope="col">Last Run Duration</th>
+          <th scope="col">Number of Runs</th>
+          <th scope="col">Next Run</th>
+          <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><a href=#>Clinical Applications to Datawarehouse</a></td>
+          <td>Database to Database</td>
+          <td>Every 3 Minutes</td>
+          <td>2019-10-18 13:54</td>
+          <td>4 Seconds</td>
+          <td>16</td>
+          <td>2019-10-18 13:57</td>
+          <td><a href=#>Destroy</a></td>
+      </tr>
+    </tbody>
+  </table>
 {{ end }}

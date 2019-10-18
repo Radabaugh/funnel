@@ -1,6 +1,50 @@
 {{ define "content" }}
-  <div class="page-header">
-    <h1>{{ .Title }}</h1>
-  </div>
-  <p>This will end up displaying all of the source datastores.</p>
+  <h1>Datastore Sources</h1>
+
+  <button type="button" class="btn btn-dark">New Datastore Source</button>
+
+  <br></br>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Adapter</th>
+        <th scope="col">Host</th>
+        <th scope="col">Database</th>
+        <th scope="col">Schema</th>
+        <th scope="col">Username</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href=#>Smart Notes</a></td>
+        <td>PostgreSQL</td>
+        <td>localhost</td>
+        <td>smart_notes_development</td>
+        <td></td>
+        <td>funnel</td>
+        <td><a href=#>Edit</a> | <a href=#>Destroy</a></td>
+      </tr>
+      <tr>
+        <td><a href=#>Rubygems</a></td>
+        <td>PostgreSQL</td>
+        <td>localhost</td>
+        <td>rubygems_development</td>
+        <td></td>
+        <td>funnel</td>
+        <td><a href=#>Edit</a> | <a href=#>Destroy</a></td>
+      </tr>
+      <tr>
+          <td><a href=#>Clinical Applications</a></td>
+          <td>MySQL</td>
+          <td>localhost</td>
+          <td>clinical_applications_development</td>
+          <td></td>
+          <td>funnel</td>
+          <td><a href=#>Edit</a> | <a href=#>Destroy</a></td>
+        </tr>
+    </tbody>
+  </table>
 {{ end }}
