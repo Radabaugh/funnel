@@ -13,26 +13,26 @@ const staticURL = "/static/"
 
 const staticRoot = "static/"
 
-type context struct {
+type Context struct {
 	Static string
 }
 
 func home(w http.ResponseWriter, req *http.Request) {
-	context := context{}
+	context := Context{}
 	render(w, "index", context)
 }
 
 func sources(w http.ResponseWriter, req *http.Request) {
-	context := context{}
+	context := Context{}
 	render(w, "sources", context)
 }
 
 func destinations(w http.ResponseWriter, req *http.Request) {
-	context := context{}
+	context := Context{}
 	render(w, "destinations", context)
 }
 
-func render(w http.ResponseWriter, tmpl string, context context) {
+func render(w http.ResponseWriter, tmpl string, context Context) {
 	context.Static = staticURL
 	tmplList := []string{"templates/base.html",
 		fmt.Sprintf("templates/%s.html", tmpl)}
@@ -60,11 +60,13 @@ func staticHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	var srv http.Server
+
 	http.HandleFunc("/", home)
 	http.HandleFunc("/sources/", sources)
 	http.HandleFunc("/destinations/", destinations)
 	http.HandleFunc(staticURL, staticHandler)
-	err := http.ListenAndServe(":3000", nil)
+	err := srv.ListenAndServe()
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
