@@ -1,1 +1,1 @@
-web: bin/funnel
+web: bin/cmd/funnel
