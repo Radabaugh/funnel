@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -60,13 +61,16 @@ func staticHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	var srv http.Server
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
 	http.HandleFunc("/", home)
 	http.HandleFunc("/sources/", sources)
 	http.HandleFunc("/destinations/", destinations)
 	http.HandleFunc(staticURL, staticHandler)
-	err := srv.ListenAndServe()
+	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
