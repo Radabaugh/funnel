@@ -1,77 +1,39 @@
 package main
 
 import (
-	"fmt"
-	"html/template"
-	"io"
 	"log"
 	"net/http"
 	"os"
-	"time"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/heroku/x/hmetrics/onload"
+	precompiler "github.com/parnic/go-assetprecompiler"
 )
-
-const staticURL = "/static/"
-
-const staticRoot = "static/"
-
-type Context struct {
-	Static string
-}
-
-func home(w http.ResponseWriter, req *http.Request) {
-	context := Context{}
-	render(w, "index", context)
-}
-
-func sources(w http.ResponseWriter, req *http.Request) {
-	context := Context{}
-	render(w, "sources", context)
-}
-
-func destinations(w http.ResponseWriter, req *http.Request) {
-	context := Context{}
-	render(w, "destinations", context)
-}
-
-func render(w http.ResponseWriter, tmpl string, context Context) {
-	context.Static = staticURL
-	tmplList := []string{"templates/base.html",
-		fmt.Sprintf("templates/%s.html", tmpl)}
-	t, err := template.ParseFiles(tmplList...)
-	if err != nil {
-		log.Print("template parsing error: ", err)
-	}
-	err = t.Execute(w, context)
-	if err != nil {
-		log.Print("template executing error: ", err)
-	}
-}
-
-func staticHandler(w http.ResponseWriter, req *http.Request) {
-	staticFile := req.URL.Path[len(staticURL):]
-	if len(staticFile) != 0 {
-		f, err := http.Dir(staticRoot).Open(staticFile)
-		if err == nil {
-			content := io.ReadSeeker(f)
-			http.ServeContent(w, req, staticFile, time.Now(), content)
-			return
-		}
-	}
-	http.NotFound(w, req)
-}
 
 func main() {
 	port := os.Getenv("PORT")
+
 	if port == "" {
-		port = "8080"
+		log.Fatal("$PORT must be set")
 	}
 
-	http.HandleFunc("/", home)
-	http.HandleFunc("/sources/", sources)
-	http.HandleFunc("/destinations/", destinations)
-	http.HandleFunc(staticURL, staticHandler)
-	err := http.ListenAndServe(":"+port, nil)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	}
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.LoadHTMLGlob("cmd/templates/*.tmpl.html")
+	router.Static("/static", "static")
+	router.Use(precompiler.GinMiddleware("/static"))
+
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+	})
+
+	router.GET("/sources", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "sources.tmpl.html", nil)
+	})
+
+	router.GET("/destinations", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "destinations.tmpl.html", nil)
+	})
+
+	router.Run(":" + port)
 }
