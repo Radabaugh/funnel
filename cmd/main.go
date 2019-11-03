@@ -29,6 +29,10 @@ func main() {
 		c.HTML(http.StatusOK, "sources.tmpl.html", nil)
 	})
 
+	router.GET("/sources/new", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "new-source-form.tmpl.html", nil)
+	})
+
 	router.GET("/destinations", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "destinations.tmpl.html", nil)
 	})
