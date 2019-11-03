@@ -1,0 +1,76 @@
+<html>
+  {{template "header.tmpl.html"}}
+<body>
+  {{template "nav.tmpl.html"}}
+  <div id="content-containter">
+
+    <h1>New Datastore Destination</h1>
+
+    <form action="/datastores" accept-charset="UTF-8" method="post">
+      <div class="card card-body bg-light col-sm-12">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="datastore_name">Name</label>
+          <div class="col-sm">
+            <input class="form-control" type="text" name="datastore[name]" id="datastore_name" />
+            <small id="name-help" class="form-text text-muted">Allows alphanumeric characters, spaces, and hyphens.</small>
+          </div>
+        </div>
+
+        <div class="field">
+          <input value="destination" type="hidden" name="datastore[type]" id="datastore_type" />
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="datastore_adapter">Adapter</label>
+          <div class="col-sm">
+            <select class="form-control" name="datastore[adapter]" id="datastore_adapter"><option value="postgresql">PostgreSQL</option></select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="datastore_host">Host</label>
+          <div class="col-sm">
+            <input class="form-control" type="text" name="datastore[host]" id="datastore_host" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="datastore_database">Database</label>
+          <div class="col-sm">
+            <input class="form-control" type="text" name="datastore[database]" id="datastore_database" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="datastore_schema">Schema</label>
+          <div class="col-sm">
+            <input class="form-control" type="text" name="datastore[schema]" id="datastore_schema" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="datastore_username">Username</label>
+          <div class="col-sm">
+            <input class="form-control" type="text" name="datastore[username]" id="datastore_username" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="datastore_password">Password</label>
+          <div class="col-sm">
+            <input class="form-control" type="password" name="datastore[password]" id="datastore_password" />
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="actions">
+        <a class="btn btn-dark" href="/">Save</a>
+      </div>
+    </form>
+  </div>
+
+  {{template "footer.tmpl.html"}}
+</body>
+</html>
