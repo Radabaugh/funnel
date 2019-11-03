@@ -11,6 +11,17 @@ import (
 )
 
 func main() {
+
+	precompiler.Compile(precompiler.Config{
+		Files: []string{
+			"static/css/bootstrap.min.css",
+			"static/sticky-footer-navbar.css",
+			"static/base-custom.css",
+		},
+		Minify:    true,
+		OutputDir: "static/",
+	})
+
 	port := os.Getenv("PORT")
 
 	if port == "" {
