@@ -25,6 +25,10 @@ func main() {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
+	router.GET("/jobs/new", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "new-job-form.tmpl.html", nil)
+	})
+
 	router.GET("/sources", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "sources.tmpl.html", nil)
 	})
@@ -37,8 +41,8 @@ func main() {
 		c.HTML(http.StatusOK, "destinations.tmpl.html", nil)
 	})
 
-	router.GET("/jobs/new", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "new-job-form.tmpl.html", nil)
+	router.GET("/destinations/new", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "new-destination-form.tmpl.html", nil)
 	})
 
 	router.Run(":" + port)
