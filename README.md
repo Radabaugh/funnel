@@ -8,44 +8,24 @@ This project provides a centralized way to run re-occuring data extraction + ing
 
 ## Local Setup
 
-### Build and Run
-
-After cloning the repo, you'll need to build the latest version of the code before it can be run:
+After cloning the repo, you'll need to follow the `.env` examples to create your own. The app can be run from the root directory with the following command:
 
 ```bash
-cd cmd
-go build -o bin/funnel -v .
+go run cmd/main.go
 ```
 
-To view the web app run this command:
+## Production Setup
 
-```bash
-heroku local web
-```
+### Heroku CLI
 
-In a browser, navigate to `localhost:5000`.
-
-**NOTE:** To run the app locally, you'll need to be sure that the paths below in `cmd/main.go` look like this:
-
-```go
-router.LoadHTMLGlob("templates/*.tmpl.html")
-router.Static("/static", "static")
-```
-
-## Heroku Setup
+The production enviroment is hosted on Heroku, you'll need to have the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed locally to push changes to the production server.
 
 ### Pushing Code to Heroku
 
-Code can be pushed to Heroku with the following command:
+Be sure that you have followed the production `.env` example file to create your own. Code can be pushed to Heroku with the following command:
 
 ```bash
 git push heroku [branch_name]:master
-```
-**NOTE:** Heroku requires the paths to be a bit different than how they need to be for local development. You'll need to be sure that the following two paths in `cmd/main.go` look like this:
-
-```go
-router.LoadHTMLGlob("cmd/templates/*.tmpl.html")
-router.Static("/static", "cmd/static")
 ```
 
 ### Opening the Heroku App
