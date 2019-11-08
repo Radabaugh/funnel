@@ -7,9 +7,18 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	env := os.Getenv("FUNNEL_ENV")
+	if "" == env {
+		env = "development"
+	}
+
+	godotenv.Load(".env." + env)
+	godotenv.Load()
+
 	port := os.Getenv("PORT")
 
 	if port == "" {
