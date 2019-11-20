@@ -52,6 +52,7 @@ func main() {
 		}
 
 		job.Save(source, destination, interval, frequency)
+		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
 	router.GET("/sources", func(c *gin.Context) {
