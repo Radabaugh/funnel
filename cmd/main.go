@@ -37,7 +37,6 @@ func main() {
 	})
 
 	router.POST("/", func(c *gin.Context) {
-
 		source := c.PostForm("job[source]")
 		destination := c.PostForm("job[destination]")
 		interval := c.PostForm("job[interval]")
