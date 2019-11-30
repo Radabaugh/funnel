@@ -6,19 +6,16 @@ import (
 	"os"
 	"strconv"
 
+	db "github.com/Radabaugh/funnel/lib/database"
 	job "github.com/Radabaugh/funnel/lib/job"
+
+	// job "github.com/Radabaugh/funnel/internal/funnel"
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
 	"github.com/joho/godotenv"
 )
 
 func main() {
-	env := os.Getenv("FUNNEL_ENV")
-	if "" == env {
-		env = "development"
-	}
-
-	godotenv.Load(".env." + env)
 	godotenv.Load()
 
 	port := os.Getenv("PORT")
@@ -52,7 +49,8 @@ func main() {
 		}
 
 		job.Save(source, destination, interval, frequency)
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+		jobs := db.SelectJobs()
+		c.HTML(http.StatusOK, "index.tmpl.html", gin.H{"jobs": jobs})
 	})
 
 	router.GET("/sources", func(c *gin.Context) {
