@@ -6,10 +6,8 @@ import (
 	"os"
 	"strconv"
 
-	db "github.com/Radabaugh/funnel/lib/database"
-	job "github.com/Radabaugh/funnel/lib/job"
-
-	// job "github.com/Radabaugh/funnel/internal/funnel"
+	db "github.com/Radabaugh/funnel/internal/database"
+	job "github.com/Radabaugh/funnel/internal/job"
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
 	"github.com/joho/godotenv"
@@ -30,8 +28,8 @@ func main() {
 	router.Static("/static", "cmd/static")
 
 	router.GET("/", func(c *gin.Context) {
-
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+		jobs := db.SelectJobs()
+		c.HTML(http.StatusOK, "index.tmpl.html", gin.H{"jobs": jobs})
 	})
 
 	router.GET("/jobs/new", func(c *gin.Context) {

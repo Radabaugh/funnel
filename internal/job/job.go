@@ -3,7 +3,7 @@ package job
 import (
 	"fmt"
 
-	db "github.com/Radabaugh/funnel/lib/database"
+	db "github.com/Radabaugh/funnel/internal/database"
 )
 
 // Save inserts a new Job into the database
