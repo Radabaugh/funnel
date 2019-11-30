@@ -9,7 +9,11 @@
           <h4 class="my-0 font-weight-normal">Queued</h4>
         </div>
         <div class="card-body">
-          <h1 class="card-title pricing-card-title">0</h1>
+          {{if .jobs}}
+            <h1 class="card-title pricing-card-title">{{len .jobs}}</h1>
+          {{else}}
+            <h1 class="card-title pricing-card-title">0</h1>
+          {{end}}
         </div>
       </div>
       <div class="card mb-4 box-shadow">
