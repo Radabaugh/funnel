@@ -2,5 +2,4 @@
 cmd/.DS_Store
 cmd/static/.DS_Store
 bin/
-.env.development
-.env.production
+.env
