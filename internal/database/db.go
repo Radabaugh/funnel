@@ -1,7 +1,7 @@
 package database
 
 import (
-	"database/sql"
+	sql "database/sql"
 	"fmt"
 	"os"
 	"strconv"
