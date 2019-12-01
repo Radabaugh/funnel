@@ -63,6 +63,7 @@ func SelectJobs() []Job {
 			panic(err)
 		}
 
+		job.ID = id
 		job.Name = source + " to " + destination
 		job.Schedule = strconv.Itoa(frequency) + " " + interval
 		job.JobType = jobType

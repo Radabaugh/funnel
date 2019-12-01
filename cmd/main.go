@@ -66,5 +66,15 @@ func main() {
 		c.HTML(http.StatusOK, "new-destination-form.tmpl.html", nil)
 	})
 
+	router.GET("/job/:jobid", func(c *gin.Context) {
+		jobid, err := strconv.Atoi(c.Param("jobid"))
+		if err != nil {
+			panic(err)
+		}
+		job.DeleteByID(jobid)
+		jobs := db.SelectJobs()
+		c.HTML(http.StatusOK, "index.tmpl.html", gin.H{"jobs": jobs})
+	})
+
 	router.Run(":" + port)
 }

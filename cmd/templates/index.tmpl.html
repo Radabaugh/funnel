@@ -62,7 +62,7 @@
               <td>{{$job.LastRunDuration}}</td>
               <td>{{$job.NumberOfRuns}}</td>
               <td>{{$job.NextRun}}</td>
-              <td><a href="/">Destroy</a></td>
+              <td><a data-method="delete" href="/job/{{$job.ID}}">Destroy</a></td>
             </tr>
           {{end}}
         {{end}}

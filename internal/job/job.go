@@ -14,3 +14,12 @@ func Save(source string, destination string, interval string, frequency int) {
 
 	connection.Exec(sqlStatement)
 }
+
+// DeleteByID deletes a record from the jobs table in the database
+func DeleteByID(jobID int) {
+	connection := db.Connection()
+
+	sqlStatement := fmt.Sprintf("DELETE FROM jobs WHERE jobs.id = %d;", jobID)
+
+	connection.Exec(sqlStatement)
+}
