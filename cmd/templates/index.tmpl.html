@@ -9,7 +9,11 @@
           <h4 class="my-0 font-weight-normal">Queued</h4>
         </div>
         <div class="card-body">
-          <h1 class="card-title pricing-card-title">2</h1>
+          {{if .jobs}}
+            <h1 class="card-title pricing-card-title">{{len .jobs}}</h1>
+          {{else}}
+            <h1 class="card-title pricing-card-title">0</h1>
+          {{end}}
         </div>
       </div>
       <div class="card mb-4 box-shadow">
@@ -17,7 +21,7 @@
           <h4 class="my-0 font-weight-normal">Working</h4>
         </div>
         <div class="card-body">
-          <h1 class="card-title pricing-card-title">1</h1>
+          <h1 class="card-title pricing-card-title">0</h1>
         </div>
       </div>
       <div class="card mb-4 box-shadow">
@@ -48,30 +52,24 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><a href=#>Smart Notes to Datawarehouse</a></td>
-          <td>Database to Database</td>
-          <td>Every 5 Minutes</td>
-          <td>2019-10-18 14:22</td>
-          <td>23 Seconds</td>
-          <td>5</td>
-          <td>2019-10-18 14:27</td>
-          <td><a href=#>Pause</a> | <a href=#>Edit</a> | <a href=#>Destroy</a></td>
-        </tr>
-        <tr>
-          <td><a href=#>Rubygems to Datawarehouse</a></td>
-          <td>Database to Database</td>
-          <td>Every 1 Hour</td>
-          <td>2019-10-18 14:22</td>
-          <td>34 Seconds</td>
-          <td>1</td>
-          <td>2019-10-18 15:22</td>
-          <td><a href=#>Pause</a> | <a href=#>Edit</a> | <a href=#>Destroy</a></td>
-        </tr>
+        {{if .jobs}}
+          {{range $job := .jobs}}
+            <tr>
+              <td>{{$job.Name}}</td>
+              <td>{{$job.JobType}}</td>
+              <td>{{$job.Schedule}}</td>
+              <td>{{$job.LastRun}}</td>
+              <td>{{$job.LastRunDuration}}</td>
+              <td>{{$job.NumberOfRuns}}</td>
+              <td>{{$job.NextRun}}</td>
+              <td><a data-method="delete" href="/job/{{$job.ID}}">Destroy</a></td>
+            </tr>
+          {{end}}
+        {{end}}
       </tbody>
     </table>
 
-    <table class="table table-hover">
+    <table class="table table-hover" hidden="true">
       <thead class="thead-light">
         <tr>
             <th scope="col"></th>
@@ -85,16 +83,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-            <td><a href=#>Clinical Applications to Datawarehouse</a></td>
-            <td>Database to Database</td>
-            <td>Every 3 Minutes</td>
-            <td>2019-10-18 13:54</td>
-            <td>4 Seconds</td>
-            <td>16</td>
-            <td>2019-10-18 13:57</td>
-            <td><a href=#>Destroy</a></td>
-        </tr>
+        {{range $job := .jobs}}
+          <tr>
+            <td>{{$job.Name}}</td>
+            <td>{{$job.JobType}}</td>
+            <td>{{$job.Schedule}}</td>
+            <td>{{$job.LastRun}}</td>
+            <td>{{$job.LastRunDuration}}</td>
+            <td>{{$job.NumberOfRuns}}</td>
+            <td>{{$job.NextRun}}</td>
+            <td><a href=#>Restart</a> | <a href=#>Destroy</a></td>
+          </tr>
+        {{end}}
       </tbody>
     </table>
   </div>

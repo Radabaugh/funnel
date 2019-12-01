@@ -5,24 +5,20 @@
   <div id="content-containter">
     <h1>New Job</h1>
 
-    <form action="/jobs" accept-charset="UTF-8" method="post">
+    <form action="/" accept-charset="UTF-8" method="post">
 
       <div class="card card-body bg-light col-sm-12">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="job_source">Source</label>
           <div class="col-sm">
-            <input class="form-control" type="text" name="job[source_id]" id="job_source_id" />
-            <input value="1" type="hidden" name="job[source_id]" id="job_source_id" />
-            <input value="Datastore" type="hidden" name="job[source_type]" id="job_source_type" />
+            <input class="form-control" type="text" name="job[source]" id="job_source" required/>
           </div>
         </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="job_destination">Destination</label>
           <div class="col-sm">
-            <input class="form-control" type="text" name="job[destination_id]" id="job_destination_id" />
-            <input value="4" type="hidden" name="job[destination_id]" id="job_destination_id" />
-            <input value="Datastore" type="hidden" name="job[destination_type]" id="job_destination_type" />
+            <input class="form-control" type="text" name="job[destination]" id="job_destination" required/>
           </div>
         </div>
 
@@ -30,10 +26,10 @@
           <label class="col-sm-2 col-form-label" for="job_Run Interval">Run interval</label>
           <div class="col-sm">
             <select class="form-control" name="job[interval]" id="job_interval">
-              <option selected="selected" value="minutely">minutely</option>
-              <option value="hourly">hourly</option>
-              <option value="daily">daily</option>
-              <option value="monthly">monthly</option>
+              <option selected="selected" value="minutes">minutely</option>
+              <option value="hours">hourly</option>
+              <option value="days">daily</option>
+              <option value="months">monthly</option>
             </select>
             <small class="form-text text-muted">On what sort of interval should this job be re-run?</small>
             <small class="form-text text-muted">Minutely and hourly are presented to facilitate development and testing purposes only.</small>
@@ -43,7 +39,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="job_Run Frequency">Run frequency</label>
           <div class="col-sm">
-            <input class="form-control" type="number" name="job[frequency]" id="job_frequency" />
+            <input class="form-control" type="number" name="job[frequency]" id="job_frequency" required/>
             <small class="form-text text-muted">How often will this job will be re-run?</small>
           </div>
         </div>
@@ -52,7 +48,7 @@
       <br>
 
       <div class="actions">
-        <a class="btn btn-dark" href="/">Save</a>
+        <input type="submit" class="btn btn-dark" value="Save">
       </div>
     </form>
   </div>

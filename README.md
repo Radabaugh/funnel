@@ -2,37 +2,47 @@
 
 # Overview
 
-This project provides a centralized way to run re-occuring data extraction + ingestion jobs. It is really a platform to schedule, run, and manage periodic ETL jobs from data sources to data destinations.
+Funnel is a work in progress. The goal of this project is to provide a centralized way to run re-occuring data extraction and ingestion jobs. It is really a platform to schedule, run, and manage periodic ETL jobs from data sources to data destinations.
 
 # Development
 
 ## Local Setup
 
-### Build and Run
-
-After cloning the repo, you'll need to build the latest version of the code before it can be run:
+After cloning the repo, you'll need to follow the `.env` example to create your own. The app can be run from the root directory with the following command:
 
 ```bash
-cd cmd
-go build -o bin/funnel -v .
+go run cmd/main.go
 ```
 
-To view the web app run this command:
+### Development Database
 
-```bash
-heroku local web
+For development, I'm using a Postgres database. Currently, this is the only supported database type. You can create the database with whatever you like, for example, I used `DBeaver` but you could also use a terminal tool like `psql`. Just be sure to note down the connection information in your `.env` file.
+
+Below is the create table statement for the `jobs` table. This is currently the only table that Funnel uses.
+
+```sql
+CREATE TABLE jobs(
+    id serial PRIMARY KEY,
+    source TEXT NOT NULL,
+    destination TEXT NOT NULL,
+    interval TEXT NOT NULL,
+    frequency INTEGER NOT NULL,
+    job_type TEXT DEFAULT 'Database to Database',
+    last_run TIMESTAMP,
+    last_run_duration TEXT,
+    number_of_runs INTEGER,
+    next_run TIMESTAMP
+);
 ```
 
-In a browser, navigate to `localhost:5000`.
+## Production Setup
 
-**NOTE:** To run the app locally, you'll need to be sure that the paths below in `cmd/main.go` look like this:
+### Heroku CLI
 
-```go
-router.LoadHTMLGlob("templates/*.tmpl.html")
-router.Static("/static", "static")
-```
+The production enviroment is hosted on Heroku, you'll need to have the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed locally to push changes to the production server.
 
-## Heroku Setup
+
+The Heroku environment settings can be accessed with `heroku config` once you have the Heroku CLI installed.
 
 ### Pushing Code to Heroku
 
@@ -41,12 +51,14 @@ Code can be pushed to Heroku with the following command:
 ```bash
 git push heroku [branch_name]:master
 ```
-**NOTE:** Heroku requires the paths to be a bit different than how they need to be for local development. You'll need to be sure that the following two paths in `cmd/main.go` look like this:
 
-```go
-router.LoadHTMLGlob("cmd/templates/*.tmpl.html")
-router.Static("/static", "cmd/static")
+### Accessing the Production Database
+
+```bash
+heroku psql
 ```
+
+The `heroku psql` command will give you access to the production database where you can run any SQL command.
 
 ### Opening the Heroku App
 
